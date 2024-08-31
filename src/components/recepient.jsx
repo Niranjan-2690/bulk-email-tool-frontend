@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 
 const CreateRecipientList = () => {
     const [name, setName] = useState('');
     const [recipients, setRecipients] = useState('');
+    const [recipientLists, setRecipientLists] = useState([]);
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const fetchRecipientLists = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/recipient-lists');
+                setRecipientLists(response.data);
+            } catch (error) {
+                console.error('Error fetching recipient lists:', error);
+                setMessage('Error fetching recipient lists.');
+            }
+        };
+
+        fetchRecipientLists();
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,12 +32,18 @@ const CreateRecipientList = () => {
             setMessage('Recipient list created successfully!');
             setName('');
             setRecipients('');
+
+            // Refetch the recipient lists after creating a new one
+            const response = await axios.get('http://localhost:3000/api/recipient-lists');
+            setRecipientLists(response.data);
+
         } catch (error) {
             console.error('Error creating recipient list:', error);
             setMessage('Error creating recipient list.');
         }
+
+        setTimeout(() => setMessage(''), 3000);
     };
-    
 
     return (
         <div>
@@ -33,7 +54,7 @@ const CreateRecipientList = () => {
                     <li><Link to="/sendmails">Send Mail</Link></li>
                 </ul>
             </div>
-            <div className="create-recipient-list-container">
+                <div className='content'>
                 <h2>Create Recipient List</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -54,13 +75,43 @@ const CreateRecipientList = () => {
                             value={recipients}
                             onChange={(e) => setRecipients(e.target.value)}
                             className="form-control"
-                            rows="10"
+                            rows="5"
                             required
                         />
                     </div>
                     <button type="submit" className="btn btn-primary">Create List</button>
                 </form>
-                {message && <p>{message}</p>}
+
+                {/* Displaying recipient lists in a table */}
+                <table className="templates-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Recipient List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {recipientLists.map(list => (
+                            <tr key={list._id}>
+                                <td>{list.name}</td>
+                                <td>
+                                    <ul>
+                                        {list.recipients.map((email, index) => (
+                                            <li key={index}>{email}</li>
+                                        ))}
+                                    </ul>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                {/* Tooltip for success message */}
+                {message && (
+                    <div className={`tooltip ${message ? 'visible' : ''}`}>
+                        {message}
+                    </div>
+                )}
             </div>
         </div>
     );
