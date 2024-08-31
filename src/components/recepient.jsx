@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom"
 
 const CreateRecipientList = () => {
     const [name, setName] = useState('');
@@ -24,34 +25,43 @@ const CreateRecipientList = () => {
     
 
     return (
-        <div className="create-recipient-list-container">
-            <h2>Create Recipient List</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">List Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="form-control"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="recipients">Recipient Emails (one per line):</label>
-                    <textarea
-                        id="recipients"
-                        value={recipients}
-                        onChange={(e) => setRecipients(e.target.value)}
-                        className="form-control"
-                        rows="10"
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Create List</button>
-            </form>
-            {message && <p>{message}</p>}
+        <div>
+            <div className='sidebar'>
+                <ul>
+                    <li><Link to="/editor">Create Template</Link></li>
+                    <li><Link to="/recepient">Create Recepient</Link></li>
+                    <li><Link to="/sendmails">Send Mail</Link></li>
+                </ul>
+            </div>
+            <div className="create-recipient-list-container">
+                <h2>Create Recipient List</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="name">List Name:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="form-control"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="recipients">Recipient Emails (one per line):</label>
+                        <textarea
+                            id="recipients"
+                            value={recipients}
+                            onChange={(e) => setRecipients(e.target.value)}
+                            className="form-control"
+                            rows="10"
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Create List</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
         </div>
     );
 };

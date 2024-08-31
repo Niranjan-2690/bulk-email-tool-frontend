@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 const Notification = ({ message, type, visible }) => {
     return (
@@ -91,52 +92,61 @@ const SendEmails = () => {
     };
 
     return (
-        <div className="send-emails-container">
-            <h2>Send Mass Emails</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="template-id">Select Template:</label>
-                    <select
-                        id="template-id"
-                        name="templateId"
-                        value={templateId}
-                        onChange={(e) => setTemplateId(e.target.value)}
-                        className="form-control"
-                        required
-                    >
-                        <option value="">Select a template</option>
-                        {templates.map(template => (
-                            <option key={template._id} value={template._id}>{template.name}</option>
-                        ))}
-                    </select>
+        <div>
+            <div className='sidebar'>
+                <ul>
+                    <li><Link to="/editor">Create Template</Link></li>
+                    <li><Link to="/recepient">Create Recepient</Link></li>
+                    <li><Link to="/sendmails">Send Mail</Link></li>
+                </ul>
+            </div>
+            <div className="send-emails-container content">
+                <h2>Send Mass Emails</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="template-id">Select Template:</label>
+                        <select
+                            id="template-id"
+                            name="templateId"
+                            value={templateId}
+                            onChange={(e) => setTemplateId(e.target.value)}
+                            className="form-control"
+                            required
+                        >
+                            <option value="">Select a template</option>
+                            {templates.map(template => (
+                                <option key={template._id} value={template._id}>{template.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="recipient-list-id">Select Recipient List:</label>
+                        <select
+                            id="recipient-list-id"
+                            name="recipientListId"
+                            value={recipientListId}
+                            onChange={(e) => setRecipientListId(e.target.value)}
+                            className="form-control"
+                            required
+                        >
+                            <option value="">Select a recipient list</option>
+                            {recipientLists.map(list => (
+                                <option key={list._id} value={list._id}>{list.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Send Emails</button>
+                </form>
+                <div className="notifications-container">
+                    {notifications.map((notif, index) => (
+                        <Notification
+                            key={index}
+                            message={notif.message}
+                            type={notif.type}
+                            visible={notif.visible}
+                        />
+                    ))}
                 </div>
-                <div className="form-group">
-                    <label htmlFor="recipient-list-id">Select Recipient List:</label>
-                    <select
-                        id="recipient-list-id"
-                        name="recipientListId"
-                        value={recipientListId}
-                        onChange={(e) => setRecipientListId(e.target.value)}
-                        className="form-control"
-                        required
-                    >
-                        <option value="">Select a recipient list</option>
-                        {recipientLists.map(list => (
-                            <option key={list._id} value={list._id}>{list.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit" className="btn btn-primary">Send Emails</button>
-            </form>
-            <div className="notifications-container">
-                {notifications.map((notif, index) => (
-                    <Notification
-                        key={index}
-                        message={notif.message}
-                        type={notif.type}
-                        visible={notif.visible}
-                    />
-                ))}
             </div>
         </div>
     );

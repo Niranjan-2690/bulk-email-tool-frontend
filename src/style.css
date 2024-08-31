@@ -161,7 +161,7 @@
 .submit-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #214ef0;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -194,6 +194,22 @@
     border-bottom: none;
 }
 
+.templates-table {
+    width: 100%; /* Make the table take up the full width of its container */
+    border-collapse: collapse; /* Remove space between borders */
+    margin-top: 20px; /* Add some space above the table */
+}
+
+.templates-table th, .templates-table td {
+    border: 1px solid #ccc; /* Add a border to each cell */
+    padding: 10px; /* Add padding for better readability */
+    text-align: left; /* Align text to the left */
+}
+
+.templates-table th {
+    background-color: #f2f2f2; /* Add a background color to header cells */
+    font-weight: bold; /* Make header text bold */
+}
 
 
 /* Tooltip */
@@ -325,6 +341,63 @@
 }
 
 
+/* Sidebar */
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #3e74f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    text-decoration: none;
+  }
+
+  .sidebar ul{
+    list-style: none;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: #FFFFFF;
+    padding: 16px;
+    text-decoration: none;
+    list-style: none;
+  }
+   
+  .sidebar a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  
+  .sidebar a:hover:not(.active) {
+    background-color: #214ef0;
+    color: white;
+  }
+  
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }
 
 
 
