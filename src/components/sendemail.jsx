@@ -98,6 +98,7 @@ const SendEmails = () => {
                     <li><Link to="/editor">Create Template</Link></li>
                     <li><Link to="/recepient">Create Recepient</Link></li>
                     <li><Link to="/sendmails">Send Mail</Link></li>
+                    <li><Link to="/">Logout</Link></li>
                 </ul>
             </div>
             <div className="send-emails-container content">
