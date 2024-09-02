@@ -1,7 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const LoginForm = () => {
     const navigate = useNavigate(); // Initialize useNavigate
@@ -53,6 +54,9 @@ const LoginForm = () => {
                                 <label htmlFor="password">Password</label>
                                 <Field type="password" id="password" name="password" className="form-control" />
                                 <ErrorMessage name="password" component="div" className="error-message" />
+                            </div>
+                            <div>
+                                <p>click here for <Link to="/register">new user registration</Link></p>
                             </div>
                             <button type="submit" className="btn btn-primary">Login</button>
                         </Form>
