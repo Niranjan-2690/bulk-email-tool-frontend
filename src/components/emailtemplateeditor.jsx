@@ -12,7 +12,7 @@ const TemplateManager = () => {
         // Fetch templates from server
         const fetchTemplates = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/templates');
+                const response = await axios.get('https://bulk-email-tool-backend-zgvf.onrender.com/api/templates');
                 setTemplates(response.data);
             } catch (error) {
                 console.error('Error fetching templates:', error);
@@ -25,7 +25,7 @@ const TemplateManager = () => {
     const handleCreate = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/templates', { name, subject, body });
+            const response = await axios.post('https://bulk-email-tool-backend-zgvf.onrender.com/api/templates', { name, subject, body });
             setTemplates([...templates, response.data]);
             setName('');
             setSubject('');

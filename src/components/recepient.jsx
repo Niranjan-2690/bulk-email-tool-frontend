@@ -11,7 +11,7 @@ const CreateRecipientList = () => {
     useEffect(() => {
         const fetchRecipientLists = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/recipient-lists');
+                const response = await axios.get('https://bulk-email-tool-backend-zgvf.onrender.com/api/recipient-lists');
                 setRecipientLists(response.data);
             } catch (error) {
                 console.error('Error fetching recipient lists:', error);
@@ -25,7 +25,7 @@ const CreateRecipientList = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('http://localhost:3000/api/recipient-lists', {
+            await axios.post('https://bulk-email-tool-backend-zgvf.onrender.com/api/recipient-lists', {
                 name,
                 recipients: recipients.split('\n').map(email => email.trim()).filter(email => email.length > 0)
             });
@@ -34,7 +34,7 @@ const CreateRecipientList = () => {
             setRecipients('');
 
             // Refetch the recipient lists after creating a new one
-            const response = await axios.get('http://localhost:3000/api/recipient-lists');
+            const response = await axios.get('https://bulk-email-tool-backend-zgvf.onrender.com/api/recipient-lists');
             setRecipientLists(response.data);
 
         } catch (error) {

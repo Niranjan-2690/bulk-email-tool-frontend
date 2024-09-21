@@ -21,7 +21,7 @@ const LoginForm = () => {
                                 .required('Required'),
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
-                            axios.post('http://localhost:3000/api/auth/login', {
+                            axios.post('https://bulk-email-tool-backend-zgvf.onrender.com/api/auth/login', {
                                 email: values.email,
                                 password: values.password,
                             })
